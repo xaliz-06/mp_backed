@@ -1,0 +1,56 @@
+# Poetry-specific files
+/.venv/               # Poetry's virtual environment directory
+/poetry.lock          # Poetry lock file (can be regenerated)
+/dist/                # Built distribution files
+/build/               # Build artifacts
+/.poetry/             # Poetry installation directory (if using local installation)
+*.poetry.lock
+
+# Python-specific files
+__pycache__/          # Python bytecode cache
+*.py[cod]             # Python bytecode files
+*.so                  # Compiled Python extensions
+*.egg-info/           # Python package metadata
+*.egg                 # Python egg files
+.python-version       # Python version file (used by some tools)
+
+# IDE and editor files
+.vscode/              # Visual Studio Code settings
+.idea/                # PyCharm/IntelliJ IDEA settings
+*.swp                 # Vim swap files
+*.swo                 # Vim swap files
+
+# Environment and configuration files
+.env                  # Environment variables file
+.env.local            # Local environment variables file
+.env.*                # Other environment-specific files
+.venv/                # Virtual environment directory (generic)
+venv/                 # Virtual environment directory (generic)
+/env/
+.env/                 # Virtual environment directory (generic)
+.env*/                # Any directory starting with .env
+
+# Testing and coverage
+.coverage             # Coverage data
+htmlcov/              # HTML coverage report
+.pytest_cache/        # Pytest cache directory
+.tox/                 # Tox virtualenvs
+
+# Logs and databases
+*.log                 # Log files
+*.sqlite              # SQLite database files
+
+# macOS-specific files
+.DS_Store             # macOS folder metadata
+
+# Windows-specific files
+Thumbs.db             # Windows thumbnail cache
+Desktop.ini           # Windows folder customization
+
+# Jupyter Notebook
+.ipynb_checkpoints/   # Jupyter notebook checkpoints
+
+# Misc
+*.bak                 # Backup files
+*.tmp                 # Temporary files
+*.temp                # Temporary files
