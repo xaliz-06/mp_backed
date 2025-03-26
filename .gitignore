@@ -5,6 +5,7 @@
 /build/               # Build artifacts
 /.poetry/             # Poetry installation directory (if using local installation)
 *.poetry.lock
+*.pyc
 
 # Python-specific files
 __pycache__/          # Python bytecode cache
