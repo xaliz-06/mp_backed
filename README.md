@@ -32,7 +32,7 @@ poetry install
 - Step 4: Run the API locally
 
 ```bash
-poetry run uvicorn src.api.main:app --reload
+poetry run uvicorn src.major_project.api.main:app --reload
 ```
 
 - API Docs
