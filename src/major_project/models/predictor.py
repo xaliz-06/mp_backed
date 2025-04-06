@@ -27,7 +27,7 @@ class Predictor:
             "Duration": [],
             "Advice": [],
             "Tests": [],
-            "Follow-up": [],
+            "Follow_up": [],
             "Diseases": [],
             "Age": [],
             "Sex": [],
@@ -64,7 +64,15 @@ class Predictor:
             prescription[current_label].append(" ".join(current_entity).replace(' ##', ''))
 
         # Filter out empty fields and remove duplicates
-        prescription = {k: list(set(v)) for k, v in prescription.items() if v}
+        prescription = {
+            k: list(set(v)) if k != "Frequency" else v  # Keep original Frequency list (may have duplicates)
+            for k, v in prescription.items()
+            if v or k == "Frequency"  # Always include Frequency
+        }
+
+        # Remove duplicates from Frequency (if you want)
+        if "Frequency" in prescription:
+            prescription["Frequency"] = list(set(prescription["Frequency"]))
 
         # Remove hyphen between age
         prescription["Age"] = [age.replace("-", "") for age in prescription.get("Age", [])]
