@@ -28,7 +28,7 @@ class Predictor:
             "Duration": [],
             "Advice": [],
             "Tests": [],
-            "Follow-up": [],
+            "Follow_up": [],
             "Diseases": [],
             "Age": [],
             "Sex": [],
