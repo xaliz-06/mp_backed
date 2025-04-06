@@ -1,5 +1,4 @@
 from .model_loader import load_model_and_tokenizer
-
 import torch
 import re
 
@@ -28,7 +27,7 @@ class Predictor:
             "Duration": [],
             "Advice": [],
             "Tests": [],
-            "Follow_up": [],
+            "Follow-up": [],
             "Diseases": [],
             "Age": [],
             "Sex": [],
@@ -64,8 +63,8 @@ class Predictor:
         if current_entity and current_label:
             prescription[current_label].append(" ".join(current_entity).replace(' ##', ''))
 
-        # Filter out empty fields
-        prescription = {k: list(set(v)) for k, v in prescription.items() if v}  # Remove duplicates
+        # Filter out empty fields and remove duplicates
+        prescription = {k: list(set(v)) for k, v in prescription.items() if v}
 
         # Remove hyphen between age
         prescription["Age"] = [age.replace("-", "") for age in prescription.get("Age", [])]
@@ -73,12 +72,29 @@ class Predictor:
         # Fix Diagnostic_procedure output
         prescription["Diagnostic_procedure"] = [proc.replace("##", "") for proc in prescription.get("Diagnostic_procedure", [])]
 
-        ## Ensure medicines are captured correctly
+        # Ensure medicines are captured correctly
         if "Medicines" not in prescription:
             prescription["Medicines"] = []
-        medicine_pattern = re.compile(r"\b(?:paracetamol|ibuprofen|aspirin|antibiotic|antiviral|antifungal|Aceclofenac)\b", re.IGNORECASE)
+
+        medicine_pattern = re.compile(
+            r"\b(?:paracetamol|ibuprofen|aspirin|antibiotic|antiviral|antifungal|Aceclofenac|amoxicillin|azithromycin|ciprofloxacin|"
+            r"doxycycline|cephalexin|metronidazole|clindamycin|erythromycin|penicillin|levofloxacin|moxifloxacin|vancomycin|gentamicin|"
+            r"ampicillin|tetracycline|ceftriaxone|cefuroxime|cefixime|ceftazidime|fluconazole|itraconazole|ketoconazole|voriconazole|"
+            r"amphotericin|terbinafine|clotrimazole|miconazole|nystatin|oseltamivir|acyclovir|valacyclovir|famciclovir|lamivudine|"
+            r"tenofovir|ribavirin|remdesivir|lopinavir|ritonavir|hydroxychloroquine|chloroquine|methotrexate|azathioprine|cyclosporine|"
+            r"tacrolimus|mycophenolate|prednisolone|dexamethasone|hydrocortisone|betamethasone|fluticasone|budesonide|montelukast|"
+            r"salbutamol|albuterol|formoterol|salmeterol|ipratropium|tiotropium|theophylline|fexofenadine|cetirizine|loratadine|"
+            r"diphenhydramine|chlorpheniramine|ranitidine|famotidine|omeprazole|pantoprazole|rabeprazole|esomeprazole|lansoprazole|"
+            r"metformin|glibenclamide|glimepiride|pioglitazone|sitagliptin|vildagliptin|insulin|aspirin|clopidogrel|warfarin|heparin|"
+            r"enoxaparin|fondaparinux|apixaban|rivaroxaban|dabigatran|atorvastatin|rosuvastatin|simvastatin|pravastatin|losartan|"
+            r"valsartan|olmesartan|telmisartan|amlodipine|nifedipine|verapamil|diltiazem|atenolol|metoprolol|propranolol|carvedilol|"
+            r"furosemide|hydrochlorothiazide|spironolactone|digoxin|isosorbide|nitroglycerin|levothyroxine|carbimazole|propylthiouracil|"
+            r"estradiol|progesterone|testosterone|diazepam|lorazepam|alprazolam|clonazepam|zolpidem|haloperidol|risperidone|olanzapine|"
+            r"quetiapine|sertraline|fluoxetine|paroxetine|citalopram|escitalopram|venlafaxine|duloxetine|bupropion|tramadol|morphine|"
+            r"codeine|oxycodone|fentanyl|methadone|buprenorphine)\b", re.IGNORECASE
+        )
+
         medicines_found = medicine_pattern.findall(input_txt)
         prescription["Medicines"].extend(medicines_found)
+
         return prescription
-
-
