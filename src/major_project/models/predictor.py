@@ -105,4 +105,7 @@ class Predictor:
         medicines_found = medicine_pattern.findall(input_txt)
         prescription["Medicines"].extend(medicines_found)
 
+        if not prescription.get("Advice"):
+            prescription["Advice"] = []
+
         return prescription
